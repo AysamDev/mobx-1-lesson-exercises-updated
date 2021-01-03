@@ -6,21 +6,36 @@ import { Item } from './Item'
 export class ShoppingList {
     constructor() {
         this.list = []
-        this.length
-        // your code here
+        this.length = this.list.length
+        
+        makeObservable(this,{
+            list: observable,
+            length: observable,
+            checkItem: action,
+            addItem: action,
+            editItem: action,
+            deleteItem: action
+        })
 
     }
-    checkItem = () => {
-        // your code here
+    
+    checkItem = (name) =>
+    {
+        let item = this.list.find(i => i.name === name)
+        item.completed = !item.completed
+    } 
+    addItem = (name) => {
+        let newItem = new Item(name)
+        this.list.push(newItem)
+        this.length++
     }
-    addItem = () => {
-        // your code here
+    editItem = (itemName, newLocation) => {
+        this.list.find(i => i.name === itemName).location = newLocation
+
     }
-    editItem = () => {
-        // your code here
-    }
-    deleteItem = () => {
-        // your code here
+    deleteItem = (itemName) => {
+        let index = this.list.findIndex(item => item.name === itemName)
+        this.list.splice(index,1)
     }
 }
 

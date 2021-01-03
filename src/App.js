@@ -6,6 +6,7 @@ import Item from './components/Item';
 
 class App extends Component {
   constructor() {
+    super();
     this.state = {
       newItem: ''
     }
@@ -19,13 +20,16 @@ class App extends Component {
     this.props.store.addItem(this.state.newItem)
   }
   render() {
+    console.log(this.props.store)
     return (
       <div className="App">
         <input onChange={this.handleChange} value={this.state.newItem} />
         <button onClick={this.addItem}>Add</button>
-        {/* your code here
-          You should map each grocery item into an Item component
-      */}
+        {
+          this.props.store.list.map((item,ind) => 
+              <Item key={ind} item={item} store={this.props.store}/>
+          )
+        }
       </div>
     );
   }
